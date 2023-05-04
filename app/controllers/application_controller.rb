@@ -6,13 +6,16 @@ class ApplicationController < Sinatra::Base
     { message: "Good luck with your project!" }.to_json
   end
 
-  #GET all users
+
+  # USERS 
+
+  #GET all users // Used in Users.js
   get "/users" do
     users = User.all
     users.to_json
   end
 
-  #GET single user
+  #GET single user // Used in User.js
   get "/users/:id" do
     user = User.find(params[:id])
     if user
@@ -22,31 +25,29 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  #POST new user
+  #POST new user // Used in NewUser.js
   post "/users" do
     user = User.create(params)
     user.to_json
   end
   
-  #GET single joke
-  get "/jokes/:id" do
-    joke = Joke.find(params[:id])
-    joke.to_json
-  end
 
-  #GET all jokes
-  get "/jokes" do
+  #JOKES 
+
+   #GET all jokes // Used in App.js
+   get "/jokes" do
     jokes = Joke.all
     jokes.to_json
   end
 
-  #POST new joke 
+
+  #POST new joke // Used in App.js
   post "/jokes" do
     joke = Joke.create(params)
     joke.to_json
   end
 
-  #DELETE joke 
+  #DELETE joke // Used in App.js
   delete "/jokes/:id" do
     # joke = Joke.find_by(id: params[:id])
     # binding.pry
@@ -55,11 +56,21 @@ class ApplicationController < Sinatra::Base
     # joke.to_json
   end
 
-  #PATCH joke
+  #PATCH joke // Used in App.js
   patch "/jokes/:id" do 
     joke = Joke.find_by(id: params[:id])
     joke.update(body: params[:body])
     joke.to_json
   end
 
+    #GET single joke // Not used
+  # get "/jokes/:id" do
+  #   joke = Joke.find(params[:id])
+  #   joke.to_json
+  # end
+
+  get "/jokes-with-parent" do
+    joke = Joke.all
+    joke.to_json(include: :user_id)
+  end
 end
