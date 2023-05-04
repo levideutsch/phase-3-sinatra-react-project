@@ -18,3 +18,5 @@ Run:
   This will start up the Backend server.
   To quit the server, press CTRL + C.
 
+  to go to frontend click [this](https://github.com/levideutsch/my-phase-3-frontend)
+
